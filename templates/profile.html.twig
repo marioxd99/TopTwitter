@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.image) }}
+    <img style="width: 150px;height: 150px" src="{{ asset('/images/'~ app.user.image) }}">
+        {{ form_row(form.Update) }}
+    {{ form_end(form) }}
+{% endblock %}

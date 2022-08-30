@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('showPost.js') }}"></script>
+{% endblock %}
+{% block body %}
+    <div class="clearfix" style="padding: 15px">
+        <div class="container" style="width: 50%; float: left">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="user-item">
+                        <img class="img-circle img-responsive img-user"
+                             src="{{ asset('/images/'~ post.image ) }}" style="width:800px;height: 700px">
+                        <div style="width:800px;">
+                            <strong>{{ post.title }}</strong>
+                            <p>{{ post.content }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container float-end" style="width: 50%; float: right;">
+            <div class="row bootstrap snippets bootdeys">
+                <div class="col-md-8 col-sm-12">
+                    <div class="comment-wrapper">
+                        <div class="panel panel-info">
+                            <div class="panel-body">
+                                <label>Title</label>
+                                <input id="titlePost" class="form-control" type="text" required>
+                                <label>Content</label>
+                                <textarea style="max-height: 100px;" id="contentPost" class="form-control" placeholder="write a comment..." rows="3" required></textarea>
+                                <br>
+                                <button type="submit" class="btn btn-info pull-right" data-id="{{ post.id }}" id="btnComment">
+                                    Post
+                                </button>
+                                <div class="clearfix"></div>
+                                <hr>
+                                <ul class="media-list comment scrolling">
+                                    {% for comment in comments %}
+                                        <li class="media">
+                                            <a href="#" class="pull-left">
+                                                <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                                            </a>
+                                            <div class="media-body">
+                                                <strong class="text-success">{{ comment.title }}</strong>
+                                                <p>{{ comment.content }}</p>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

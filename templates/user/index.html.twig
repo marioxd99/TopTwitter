@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('postAjax.js') }}"></script>
+{% endblock %}
+{% block body %}
+    <table class="table nowrap responsive" style="width:100%" id="tableUser">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
+            <th scope="col">Password 1</th>
+            <th scope="col">Password 2</th>
+            <th scope="col">Avatar</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.password }}</td>
+                <td><img alt="" style="width: 50px;height: 50px" src="{{ asset('/images/'~ user.image ) }}"></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('postAjax.js') }}"></script>
+{% endblock %}
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <div style="float:left; width: 45%;margin-top: 80px;margin-left: 650px;" class="scroll">
+        {% for post in posts %}
+            {% set LikeUsers = post.likesUser | split(',') %}
+        <div class="card" style="width: 700px;align-content: center;margin-bottom: 8px;" id="dataTable-{{ post.id }}">
+            <a href="{{ path('showPost', {id: post.id}) }}"><img class="card-img-top imagePost" src="{{ asset('/images/'~ post.image ) }}" style=""></a>
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.content }}</p>
+                <a data-id="{{ post.id }}" data-title="{{ post.title }}" data-content="{{ post.content }}" id="btnUpdate" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Update
+                </a>
+                <a data-confirm="Are you sure to delete this item?" onclick="deletePost({{ post.id }})" class="btn btn-danger">Delete</a>
+               {% if app.user.id in LikeUsers %}
+                    <img src="{{ asset('/images/like-button-icon.png') }}" style="width: 50px;height: 50px">
+                {% else %}
+                    <button data-id="{{ post.id }}" id="likeBtn" class="btn btn-primary btn-{{ post.id }}">Like <i class="fa fa-thumbs-up"></i></button>
+                    <p id="countLikes-{{ post.id }}">{{ post.likes }} Likes</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+<div>
+    <div class="card" style="float: right;margin-right: 50px;margin-top: 90px">
+        <div class="card-body">
+            <label>Search User</label>
+            <input type="text" id="searchUser" style="margin-right: 50px">
+            <p id="userResult"></p>
+        </div>
+    </div>
+    <div class="card" style="float: right;margin-right: 50px;margin-top: 90px">
+        <h5 class="card-header">Usuarios Seguidos</h5>
+        <div class="card-body follow">
+            {% for user in users %}
+                {% if user.id in following %}
+                    <div id="followedUser" class="d-flex justify-content-between">
+                        <img alt="" src="{{ asset('/images/'~ user.image) }}" style="border-radius:20px;width: 45px;height: 45px">
+                        <p>{{user.email}}  following</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card" style="float: right;margin-right: 50px;margin-top: 90px">
+        <h5 class="card-header fw-bold fs-6">Seguir a otras personas</h5>
+        <div class="card-body">
+            {% for user in users %}
+                {% if (user.id not in following or following|length == 0) and user.id != app.user.id   %}
+                    <div class="d-flex justify-content-between userFollow-{{ user.id }}">
+                        <img alt="" src="{{ asset('/images/'~ user.image) }}" style="border-radius:20px;width: 45px;height: 45px">
+                        <p>{{ user.email }}<button data-id="{{ user.id }}" id="btnUser" class="btn btn-primary">Seguir</button></p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Tweet</h5>
+                <button id="closeModal" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input id="idPost" hidden>
+                    <label>Title</label>
+                    <input class="form-control" id="titlePost">
+                    <label>Content</label>
+                    <input class="form-control" id="contentPost">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="updatePost" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}
+
+

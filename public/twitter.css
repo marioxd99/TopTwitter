@@ -1,0 +1,92 @@
+
+.imagePost{
+    transition: transform .2s;
+}
+
+.imagePost:hover {
+    transform: scale(1.1);
+}
+
+
+.comment-wrapper .panel-body {
+    max-height:650px;
+    overflow:auto;
+}
+
+.comment-wrapper .media-list .media img {
+    width:64px;
+    height:64px;
+    border:2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom:1px dashed #efefef;
+    margin-bottom:25px;
+}
+
+.user-item {
+    font-family: Verdana;
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+}
+
+.user-item > img {
+    width: 100%;
+}
+
+.user-item > div small {
+    display: block;
+    color: #fff;
+    padding-top: 10px;
+}
+
+.user-item > div p {
+    color: #fff;
+    padding-top: 10px;
+    line-height: 16px;
+    font-size: 12px;
+}
+
+.user-item > div {
+    background: #5bc0de;
+    bottom: -50px;
+    line-height: 16px;
+    padding: 15px 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -ms-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    padding: 20px;
+}
+
+.user-item:hover > div {
+    background: #5cb85c;
+    bottom: -75px;
+    color: #000000;
+}
+
+.img-user {
+    padding: 4px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.scrolling{
+    max-height:340px;
+    overflow: hidden;
+    overflow-y : scroll;
+    width: 670px;
+    background: #cbd3da;
+}
+.scrolling::-webkit-scrollbar{
+    width: 10px;
+}
+.scrolling::-webkit-scrollbar-thumb{
+    background : #ff9d00;
+}
